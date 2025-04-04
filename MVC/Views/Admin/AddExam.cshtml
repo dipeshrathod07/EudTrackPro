@@ -1,0 +1,179 @@
+@{
+    ViewData["Title"] = "Exam";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+@model List<Repositories.Models.t_student>
+@{
+    ViewData["Title"] = "Exam";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Exam Timetable</h3>
+</div>
+<br>
+<div id="grid"></div>
+<span id="notification"></span>
+
+<!-- Fixed Form Container -->
+<div id="fixedFormContainer">
+    <form id="studentForm"></form>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(() => {
+                buildForm();
+            }, 1000);
+
+            loadNotification();
+
+            // Add event listener for the navigation link
+            $("#navExamForm").on("click", function (e) {
+                e.preventDefault(); // Prevent default link behavior
+                addForm(); // Call the function to display the form
+            });
+        });
+
+        var classDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://localhost:5113/api/StudentApi/class_Read",
+                    dataType: "json"
+                }
+            }
+        });
+
+        function loadNotification() {
+            $("#notification").kendoNotification({
+                allowHideAfter: 1000,
+                width: 300,
+                position: {
+                    pinned: true,
+                    top: 30,
+                    right: 30,
+                }
+            });
+        }
+
+        function addForm() {
+            var form = $("#studentForm").getKendoForm();
+            $("#studentForm").data("kendoForm").setOptions({
+                formData: {
+                    c_exam_id: "0",
+                    c_class_id: "",
+                    c_exam_image: ""
+                }
+            });
+            // Optionally, scroll to the form
+            $("html, body").animate({ scrollTop: $("#fixedFormContainer").offset().top }, 1000);
+        }
+
+        function buildForm() {
+            const validationSuccess = $("#validation-success");
+
+            function getSectionDataSource(classId) {
+                return new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: "http://localhost:5113/api/StudentApi/section_Read/?id=" + classId,
+                            dataType: "json"
+                        }
+                    }
+                });
+            }
+
+            $("#studentForm").kendoForm({
+                formData: {
+                    c_exam_id: "0",
+                    c_class_id: "",
+                    c_exam_image: ""
+                },
+                items: [
+                    {
+                        field: "c_exam_id",
+                        label: "",
+                        editor: function (container, options) {
+                            $('<input type="hidden" id="examid" name="' + options.field + '" value="0" />').appendTo(container);
+                        }
+                    },
+                    {
+                        field: "c_class_id", label: "Class", editor: "DropDownList",
+                        editorOptions: {
+                            dataTextField: "c_class_name",
+                            dataValueField: "c_class_id",
+                            dataSource: classDataSource,
+                            optionLabel: "-- Select Class --",
+                        }
+                    },
+                    {
+                        field: "c_exam_image", label: "Upload File:",
+                        editor: function (container, options) {
+                            $('<input type="file" name="' + options.field + '" />')
+                                .appendTo(container)
+                                .kendoUpload({
+                                    validation: {
+                                        allowedExtensions: [".pdf", ".docx", ".doc"],
+                                        maxFileSize: 5242880 // 5MB
+                                    }
+                                });
+                        }
+                    }
+                ],
+                buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info">Save</button> <button class="k-button-solid-base k-button-lg">Clear</button>',
+                validateField: function (e) {
+                    validationSuccess.html("");
+                },
+                submit: function (e) {
+                    e.preventDefault();
+                    debugger
+                    const StudentData = new FormData();
+                    StudentData.append("c_exam_id", e.model.c_exam_id);
+                    StudentData.append("c_class_id", e.model.c_class_id);
+
+                    var file = $("input[name=c_exam_image]")[0].files[0];
+                    if (file) {
+                        StudentData.append("ExamFile", file);
+                    }
+                    for (let [key, value] of StudentData.entries()) {
+                        console.log(key, value);
+                    }
+
+                    var url = "http://localhost:5113/api/ExamApi/AddExam"; // Insert API endpoint
+                    var method = "POST"; // Only POST for insertion
+
+                    $.ajax({
+                        url: url,
+                        method: method,
+                        contentType: false,
+                        processData: false,
+                        data: StudentData,
+                        enctype: "multipart/form-data",
+                        success: function (result) {
+                            if (result.success) {
+                                $("#notification").getKendoNotification().show("Insert Successfully!!", "success");
+                            } else {
+                                $("#notification").getKendoNotification().show(result.message, "error");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $("#notification").getKendoNotification().show("Not inserted or updated some error", "error");
+                            console.error("API Error:", xhr.responseText);
+                        }
+                    });
+                    validationSuccess.html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+                },
+                clear: function (ev) {
+                    validationSuccess.html("");
+                }
+            });
+        }
+    </script>
+}

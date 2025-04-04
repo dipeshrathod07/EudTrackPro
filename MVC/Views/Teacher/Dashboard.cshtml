@@ -1,0 +1,259 @@
+@{
+    ViewData["Title"] = "Students & Teacher List";
+        Layout = "../Shared/_TeacherLayout.cshtml";
+}
+
+<!-- Main Container -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Students & Teacher List</h2>
+
+    <!-- Teacher Section -->
+    <div class="card shadow-sm mb-4" id="teacherSection">
+        <div class="card-body d-flex align-items-center">
+            <img id="teacherImage" src="" alt="Teacher Profile" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'; this.onerror=null;">
+            <h4 class="card-title mb-0" id="teacherName"></h4>
+        </div>
+    </div>
+
+    <!-- Student Section -->
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Total Students: <span id="studentCount" class="badge bg-primary">0</span></h4>
+        </div>
+        <div class="card-body">
+            <div id="grid"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Teacher Details -->
+    <div id="teacherModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Teacher Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="teacherDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Student Details -->
+    <div id="studentModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Student Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="studentDetails"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        .k-grid {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .k-grid-header {
+            background-color: #e9ecef;
+        }
+        .modal-content {
+            border-radius: 10px;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        img {
+            transition: transform 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.1);
+        }
+        /* Custom style for the default profile image */
+        img[src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"] {
+            background-color: #e9ecef;
+            object-fit: cover;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            var teacherId = null;  // Change this ID as needed
+            $.ajax({
+                url: "http://localhost:5113/api/Teacher/GetTeacherIdByUserId",
+                type: "GET",
+                xhrFields: {
+                    withCredentials: true // Ensures cookies (including session) are sent
+                },
+                success: function (response) {
+                    console.log(response)
+                    teacherId = response
+                    if(teacherId)
+                    {
+                        $.ajax({
+                        url: `http://localhost:5113/api/MaterialApi/GetTeacher/${teacherId}`,
+                        type: "GET",
+                        success: function (response) {
+                            console.log("Teacher API Response:", response); // Debug log
+                            if (response.success && response.teacher) {
+                                let teacher = response.teacher;
+
+                                $("#teacherImage").attr("src", teacher.c_Image || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+                                $("#teacherName").text(teacher.username);
+
+                                $("#teacherImage").click(function () {
+                                    let detailsHtml = `
+                                        <p><strong>ID:</strong> ${teacher.teacherId}</p>
+                                        <p><strong>Username:</strong> ${teacher.username}</p>
+                                        <p><strong>Phone Number:</strong> ${teacher.phoneNumber}</p>
+                                        <p><strong>Date of Birth:</strong> ${teacher.dateOfBirth}</p>
+                                        <p><strong>Qualification:</strong> ${teacher.qualification}</p>
+                                        <p><strong>Experience:</strong> ${teacher.experience} years</p>
+                                        <p><strong>Subject Expertise:</strong> ${teacher.subjectExpertise}</p>
+                                        <p><strong>Created At:</strong> ${teacher.createdAt}</p>
+                                        <p><strong>Status:</strong> ${teacher.status}</p>
+                                        <img src="${teacher.c_Image || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}" alt="Teacher Image" class="rounded" style="width:100px; height:100px;" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'; this.onerror=null;">
+                                    `;
+                                    $("#teacherDetails").html(detailsHtml);
+                                    $("#teacherModal").modal("show");
+                                });
+
+                                // 🔹 Fetch All Students (One-Time Call)
+                                loadAllStudents(teacherId);
+                            } else {
+                                console.error("Invalid teacher response:", response);
+                                alert("Failed to load teacher data.");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching teacher data:", status, error, xhr.responseText);
+                            alert("Error fetching teacher data.");
+                        }
+                    });
+
+                    }
+                },
+                error: function () {
+                    alert("Error occurred while processing your request.");
+                }
+            })
+            // 🔹 Fetch Teacher Data (One-Time Call)
+            
+            function loadAllStudents(teacherId) {
+                $.ajax({
+                    url: `http://localhost:5113/api/MaterialApi/GetstudentByTeacher/${teacherId}`,
+                    type: "GET",
+                    success: function (response) {
+                        console.log("Student API Response:", response); // Debug log
+                        if (response && response.success && response.data && response.data.length > 0) {
+                            let students = response.data;
+                            $("#studentCount").text(students.length); // Update total count
+
+                            // Add all students to the grid at once
+                            students.forEach(student => {
+                                addStudentToGrid(student);
+                            });
+                        } else {
+                            console.log("No students found or invalid response.");
+                            $("#studentCount").text(0);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching student data:", status, error, xhr.responseText);
+                        $("#studentCount").text(0);
+                    }
+                });
+            }
+
+            function addStudentToGrid(student) {
+                var grid = $("#grid").data("kendoGrid");
+
+                if (!grid) {
+                    $("#grid").kendoGrid({
+                        dataSource: {
+                            data: [student], // Initialize with the first student
+                            schema: {
+                                model: {
+                                    fields: {
+                                        c_Student_Id: { type: "number" },
+                                        c_Full_Name: { type: "string" },
+                                        c_Gender: { type: "string" },
+                                        c_Class_Id: { type: "number" },
+                                        c_Section_Id: { type: "number" },
+                                        c_Status: { type: "boolean" },
+                                        c_Image: { type: "string" } // Added c_Image field
+                                    }
+                                }
+                            },
+                            pageSize: 5
+                        },
+                        height: 400,
+                        sortable: true,
+                        pageable: true,
+                        columns: [
+                            { field: "c_Student_Id", title: "ID", width: "10%" },
+                            { field: "c_Full_Name", title: "Name", width: "20%" },
+                            { field: "c_Gender", title: "Gender", width: "10%" },
+                            { field: "c_Class_Id", title: "Class", width: "10%" },
+                            { field: "c_Section_Id", title: "Section", width: "10%" },
+                            { field: "c_Status", title: "Active", template: "#= c_Status ? 'Yes' : 'No' #", width: "10%" },
+                            {
+                                command: {
+                                    text: "View",
+                                    click: showStudentDetails,
+                                    className: "btn btn-sm btn-outline-primary"
+                                },
+                                title: "Actions",
+                                width: "10%"
+                            }
+                        ]
+                    });
+                } else {
+                    grid.dataSource.add(student); // Add subsequent students
+                }
+            }
+
+            function showStudentDetails(e) {
+                e.preventDefault();
+                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+                var detailsHtml = `
+                    <p><strong>ID:</strong> ${dataItem.c_Student_Id}</p>
+                    <p><strong>Name:</strong> ${dataItem.c_Full_Name}</p>
+                    <p><strong>Date of Birth:</strong> ${dataItem.c_Date_Of_Birth || 'N/A'}</p>
+                    <p><strong>Gender:</strong> ${dataItem.c_Gender}</p>
+                    <p><strong>Class:</strong> ${dataItem.c_Class_Id}</p>
+                    <p><strong>Section:</strong> ${dataItem.c_Section_Id}</p>
+                    <p><strong>Guardian:</strong> ${dataItem.c_Guardian_Details || 'N/A'}</p>
+                    <p><strong>Enrollment Date:</strong> ${dataItem.c_Enrollment_Date || 'N/A'}</p>
+                    <p><strong>Status:</strong> ${dataItem.c_Status ? "Active" : "Inactive"}</p>
+                    <img src="${dataItem.c_Image || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}" alt="Student Image" class="rounded" style="width:100px; height:100px;" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'; this.onerror=null;">
+                `;
+
+                $("#studentDetails").html(detailsHtml);
+                $("#studentModal").modal("show");
+            }
+        });
+    </script>
+}                                           

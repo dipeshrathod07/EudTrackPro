@@ -1,0 +1,84 @@
+<!-- ✅ Kendo UI CSS (Theme) -->
+@* <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.115/styles/kendo.default-v2.min.css">
+
+<!-- ✅ jQuery (Required for Kendo UI) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- ✅ Kendo UI JS -->
+<script src="https://kendo.cdn.telerik.com/2024.1.115/js/kendo.all.min.js"></script> *@
+@{
+    Layout = "../Shared/_StudentLayout";
+}
+
+<div class="k-card k-shadow-md" style="width: 400px; margin: 100px auto; padding: 20px; display: flex; margin-left: 470px;">
+    @* <h2 class="k-card-title">Feedback for <span id="teacherName">Mr. John Doe</span></h2> *@
+    <h2 class="k-card-title">Feedback</h2>
+
+    <!-- Rating Slider -->
+    <label for="ratingSlider">Rating:</label>
+    <input id="ratingSlider" />
+
+    <!-- Feedback TextArea -->
+    <label for="feedbackText" style="margin-top: 10px;">Your Feedback:</label>
+    <textarea id="feedbackText" rows="4"></textarea>
+
+    <!-- Submit Button -->
+    <button id="submitFeedback" class="k-button k-primary" style="width: 100%; margin-top: 15px;">Submit
+        Feedback</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // ✅ Initialize Kendo Slider
+        $("#ratingSlider").kendoSlider({
+            min: 1,
+            max: 5,
+            smallStep: 1,
+            largeStep: 1,
+            value: 3 // Default value
+        });
+
+        // ✅ Initialize Kendo TextArea
+        $("#feedbackText").kendoTextArea({
+            placeholder: "Write your feedback here..."
+        });
+
+        // ✅ Handle form submission
+        $("#submitFeedback").click(function () {
+            var rating = $("#ratingSlider").data("kendoSlider").value();
+            var feedbackText = $("#feedbackText").val();
+            var teacherName = $("#teacherName").text();
+
+            // Static values for Teacher ID, Student ID, and Created Date
+            var teacherId = 2;
+            var studentId = 20;
+            var createdDate = new Date().toISOString();
+
+            var feedbackData = {
+                C_Teacher_Id: teacherId,
+                C_Student_Id: studentId,
+                C_Rating: rating,
+                C_Feedback_Text: feedbackText,
+                C_Created_Date: createdDate
+            };
+
+            console.log("Feedback Data:", feedbackData);
+
+            // ✅ Send Data to API
+            $.ajax({
+                url: "http://localhost:5113/api/StudentApi/AddFeedback",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(feedbackData),
+                success: function (response) {
+                    console.log("Success:", response);
+                    alert("Feedback submitted successfully!");
+                },
+                error: function (xhr) {
+                    console.error("Error:", xhr.responseText);
+                    alert("Error submitting feedback.");
+                }
+            });
+        });
+    });
+</script>

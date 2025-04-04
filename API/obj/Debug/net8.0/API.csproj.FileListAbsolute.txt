@@ -1,0 +1,292 @@
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\appsettings.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\API.exe
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\API.deps.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\API.runtimeconfig.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Npgsql.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\staticwebassets\msbuild.build.API.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\scopedcss\bundle\API.styles.css
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.csproj.Up2Date
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\refint\API.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\API.genruntimeconfig.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\appsettings.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\API.exe
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\API.deps.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\API.runtimeconfig.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Npgsql.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.build.API.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\scopedcss\bundle\API.styles.css
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.csproj.Up2Date
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\refint\API.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\API.genruntimeconfig.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\appsettings.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\API.exe
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\API.deps.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\API.runtimeconfig.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Npgsql.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.build.API.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\scopedcss\bundle\API.styles.css
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.csproj.Up2Date
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\refint\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\API.genruntimeconfig.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\appsettings.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\API.exe
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\API.deps.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\API.runtimeconfig.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Npgsql.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\staticwebassets\msbuild.build.API.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\scopedcss\bundle\API.styles.css
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.csproj.Up2Date
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\refint\API.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\API.genruntimeconfig.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\appsettings.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\API.exe
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\API.deps.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\API.runtimeconfig.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Npgsql.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\staticwebassets\msbuild.build.API.props
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\scopedcss\bundle\API.styles.css
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.csproj.Up2Date
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\refint\API.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.pdb
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\API.genruntimeconfig.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\APi\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\APi\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\appsettings.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.exe
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.deps.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.runtimeconfig.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.pdb
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Npgsql.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Repositories.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Repositories.pdb
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.csproj.AssemblyReference.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.AssemblyInfo.cs
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.build.API.props
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\scopedcss\bundle\API.styles.css
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.csproj.Up2Date
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\refint\API.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.pdb
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.genruntimeconfig.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\ref\API.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\appsettings.Development.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\appsettings.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.exe
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.deps.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.runtimeconfig.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\API.pdb
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\ClosedXML.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\ClosedXML.Parser.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\ExcelNumberFormat.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\iTextSharp.LGPLv2.Core.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Npgsql.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\RBush.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\SixLabors.Fonts.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\SkiaSharp.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\System.IO.Packaging.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\runtimes\osx\native\libSkiaSharp.dylib
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\runtimes\win-arm64\native\libSkiaSharp.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\runtimes\win-x64\native\libSkiaSharp.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\runtimes\win-x86\native\libSkiaSharp.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Repositories.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\bin\Debug\net8.0\Repositories.pdb
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.csproj.AssemblyReference.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.AssemblyInfoInputs.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.AssemblyInfo.cs
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.csproj.CoreCompileInputs.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cs
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.MvcApplicationPartsAssemblyInfo.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets.development.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.build.API.props
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.API.props
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\staticwebassets.pack.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\scopedcss\bundle\API.styles.css
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.csproj.Up2Date
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\refint\API.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.pdb
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\API.genruntimeconfig.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\API\obj\Debug\net8.0\ref\API.dll

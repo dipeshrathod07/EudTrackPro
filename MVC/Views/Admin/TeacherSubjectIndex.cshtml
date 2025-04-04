@@ -1,0 +1,153 @@
+@{
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<style>
+    .container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    #assignBtn {
+        width: 100%;
+        margin-top: 15px;
+        @* background-color: #007BFF; *@
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+
+    .notification {
+        display: none;
+        margin-top: 10px;
+    }
+</style>
+
+
+
+
+<div class="container">
+    <h2>Assign Subject to Teacher</h2>
+
+    <!-- Dropdown for Teachers -->
+    <div class="form-group">
+        <label for="teacherDropdown">Select Teacher:</label>
+        <input id="teacherDropdown" style="width: 100%;" />
+    </div>
+
+    <!-- Dropdown for Subjects -->
+    <div class="form-group">
+        <label for="subjectDropdown">Select Subject:</label>
+        <input id="subjectDropdown" style="width: 100%;" />
+    </div>
+
+    <!-- Assign Button -->
+    <button id="assignBtn" class="k-button k-primary">Assign Subject</button>
+
+    <!-- Notification Message -->
+<div id="notification" class="k-notification notification" style="display: none;"></div>
+</div>
+
+@section Scripts
+{
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default-v2.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Load Teachers in DropDownList
+          $("#teacherDropdown").kendoDropDownList({
+        optionLabel: "Select a Teacher",  // Ensure this is present
+        dataTextField: "c_teacher_name",
+        dataValueField: "c_teacher_id",
+        dataSource: {
+            transport: {
+                read: {
+                    url: "http://localhost:5113/api/TS/get-teachers",
+                    dataType: "json"
+                }
+            }
+        }
+    });
+
+    // Load Subjects in DropDownList
+    $("#subjectDropdown").kendoDropDownList({
+        optionLabel: "Select a Subject",  // Ensure this is present
+        dataTextField: "subjectName",
+        dataValueField: "subjectId",
+        dataSource: {
+            transport: {
+                read: {
+                    url: "http://localhost:5113/api/TS/get-subjects",
+                    dataType: "json"
+                }
+            }
+        }
+    });
+
+            // Assign Subject to Teacher via AJAX
+            $("#assignBtn").click(function () {
+                var teacherId = $("#teacherDropdown").data("kendoDropDownList").value();
+                var subjectId = $("#subjectDropdown").data("kendoDropDownList").value();
+
+                if (!teacherId || !subjectId) {
+                    showNotification("Please select both a teacher and a subject.", "error");
+                    return;
+                }
+
+                $.ajax({
+                    url: "http://localhost:5113/api/TS/assign-subject",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        teacherId: parseInt(teacherId),
+                        subjectId: parseInt(subjectId)
+                    }),
+                    success: function (response) {
+                        showNotification(response.message, "success");
+                    },
+                    error: function (xhr) {
+                        showNotification(xhr.responseJSON ? xhr.responseJSON.message : "Already Assigned.", "error");
+                    }
+                });
+            });
+
+            function showNotification(message, type) {
+                var notification = $("#notification");
+                notification.removeClass("k-notification-info k-notification-success k-notification-error");
+
+                if (type === "success") {
+                    notification.addClass("k-notification-success");
+                } else if (type === "error") {
+                    notification.addClass("k-notification-error");
+                }
+
+                notification.text(message).fadeIn().delay(3000).fadeOut();
+            }
+                setTimeout(function () {
+        $("#teacherDropdown").data("kendoDropDownList").value("");  // Reset to optionLabel
+        $("#subjectDropdown").data("kendoDropDownList").value("");  // Reset to optionLabel
+    }, 500);
+        });
+    </script>
+}

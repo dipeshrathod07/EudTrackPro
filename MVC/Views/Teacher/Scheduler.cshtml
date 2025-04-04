@@ -1,0 +1,233 @@
+ @{
+    Layout = "../Shared/_TeacherLayout.cshtml";
+}
+    <!-- Kendo Scheduler Container -->
+    <div id="classDropDown"></div>
+    <div id="sectionDropDown"></div>
+    <div id="scheduler"></div>
+    <script>
+        $(document).ready(function () {
+            // Constants
+
+            var apiUrl = "http://localhost:5113/api/Teacher";
+            var ClassId = null;
+            var SectionId = null;
+            var SubjectId = 1;
+            var TeacherId = null;
+            $.ajax({
+                url: "http://localhost:5113/api/Teacher/GetTeacherIdByUserId",
+                type: "GET",
+                xhrFields: {
+                    withCredentials: true // Ensures cookies (including session) are sent
+                },
+                success: function (response) {
+                    console.log(response)
+                    TeacherId = response
+                },
+                error: function () {
+                    alert("Error occurred while processing your request.");
+                }
+            })
+
+            $("#classDropDown").kendoDropDownList({
+            dataTextField: "c_Class_Name",  // Field to display
+            dataValueField: "c_Class_Id",   // Field to use as value
+            optionLabel: "Select a Class...",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "http://localhost:5113/api/Teacher/GetClasses",
+                        dataType: "json"
+                    }
+                }
+            },
+            change: function (e) {
+                ClassId = this.value();
+                console.log("Selected Class ID:", ClassId);
+                updateSectionDropDown(ClassId)
+                }
+            });
+            function updateSectionDropDown(ClassId)
+            {
+                $("#sectionDropDown").kendoDropDownList({
+                    dataTextField: "c_Section_Name",  // Field to display
+                    dataValueField: "c_Section_Id",   // Field to use as value
+                    optionLabel: "Select a Section...",
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: `http://localhost:5113/api/Teacher/GetSectionsByClass/${ClassId}`,
+                                dataType: "json"
+                            }
+                        }
+                    },
+                    change: function (e) {
+                        SectionId = this.value();
+                        console.log("Selected Class ID:", SectionId);
+                        refreshScheduler();
+                        }
+                });
+            }
+            
+            var Schedular = $("#scheduler").kendoScheduler({
+                date: new Date(),
+                height: 600,
+                views: ["day", "week", "month", "agenda"],
+                timezone: "Etc/UTC",
+                editable: {
+                    create: true,
+                    update: true,
+                    destroy: true
+                },
+                dataSource: {
+                    batch: false,
+                    transport: {
+                        // READ: Fetch existing events
+                        read: {
+                            url: function () {
+                                return `${apiUrl}/GetSchedulings/${TeacherId}?teacherId=${TeacherId}&classId=${ClassId || ''}&sectionId=${SectionId || ''}`;
+                            },
+                            dataType: "json",
+                            type: "GET",
+                            success: function (response) {
+                                console.log("✅ API Data Loaded:", response);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("❌ Error Loading Events:", xhr.responseText || error);
+                            }
+                        },
+                        // CREATE: Add new event
+                        create: {
+                            url: `${apiUrl}/AddEvent`,
+                            dataType: "json",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: function (event) {
+                                console.log("🚀 Creating Event:", event);
+                                const requestData = {
+                                    c_Class_Id: ClassId,
+                                    c_Section_Id: SectionId,
+                                    c_Subject_Id: SubjectId,
+                                    c_Teacher_Id: TeacherId,
+                                    c_Task_Title: event.c_Task_Title || "",
+                                    c_Task_Start_Time: event.c_Task_Start_Time ? new Date(event.c_Task_Start_Time).toISOString() : new Date().toISOString(),
+                                    c_Task_End_Time: event.c_Task_End_Time ? new Date(event.c_Task_End_Time).toISOString() : new Date().toISOString(),
+                                    c_Task_Description: event.c_Task_Description || "",
+                                    c_Task_Is_All_Day: event.c_Task_Is_All_Day === true,
+                                    c_CreatedAt: new Date().toISOString()
+                                };
+                                console.log("📤 Sending JSON to API (Create):", JSON.stringify(requestData, null, 2));
+                                return requestData;
+                            },
+                            success: function (response) {
+                                console.log("✅ Event Created Successfully:", response);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("❌ Error Creating Event:", xhr.responseText || error);
+                                alert("Failed to create event: " + (xhr.responseText || error));
+                            }
+                        },
+                        // UPDATE: Modify existing event
+                        update: {
+                            url: function (event) {
+                                return `${apiUrl}/UpdateSchedulings/${event.c_TimeTable_Id}`;
+                            },
+                            dataType: "json",
+                            type: "PUT",
+                            contentType: "application/json",
+                            data: function (event) {
+                                console.log("🚀 Updating Event:", event);
+                                const requestData = {
+                                    c_TimeTable_Id: event.c_TimeTable_Id,
+                                    c_Class_Id: ClassId,
+                                    c_Section_Id: SectionId,
+                                    c_Subject_Id: SubjectId,
+                                    c_Teacher_Id: TeacherId,
+                                    c_Task_Title: event.title || "",
+                                    c_Task_Start_Time: event.start ? new Date(event.start).toISOString() : new Date().toISOString(),
+                                    c_Task_End_Time: event.end ? new Date(event.end).toISOString() : new Date().toISOString(),
+                                    c_Task_Description: event.description || "",
+                                    c_Task_Is_All_Day: event.isAllDay === true,
+                                    c_CreatedAt: event.c_CreatedAt || new Date().toISOString()
+                                };
+                                console.log("📤 Sending JSON to API (Update):", JSON.stringify(requestData, null, 2));
+                                return JSON.stringify(requestData);
+                            },
+                            success: function (response) {
+                                console.log("✅ Event Updated Successfully:", response);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("❌ Error Updating Event:", xhr.responseText || error);
+                                alert("Failed to update event: " + (xhr.responseText || error));
+                            }
+                        },
+                        // DESTROY: Delete event (optional, if supported by your API)
+                        destroy: {
+                            url: function (event) {
+                                return `${apiUrl}/DeleteSchedulings/${event.c_TimeTable_Id}`;
+                            },
+                            dataType: "json",
+                            type: "DELETE",
+                            success: function (response) {
+                                console.log("✅ Event Deleted Successfully:", response);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("❌ Error Deleting Event:", xhr.responseText || error);
+                                alert("Failed to delete event: " + (xhr.responseText || error));
+                            }
+                        },
+                        @* parameterMap: function (data, type) {
+                            if (type === "create" || type === "update") {
+                                console.log("📤 ParameterMap Data:", data);
+                                return JSON.stringify(data);
+                            }
+                            return data;
+                            } *@
+                            parameterMap: function (data, type) {
+                                if (type === "create" || type === "update") {
+                                    console.log("📤 Raw Event Data:", data);
+                                    const requestData = {
+                                        "c_Class_Id": ClassId,           // Hardcoded values
+                                        "c_Section_Id": SectionId,
+                                        "c_Subject_Id": 1,
+                                        "c_Teacher_Id": TeacherId,
+                                        "c_Task_Title": data.c_Task_Title || "Default Title",
+                                        "c_Task_Start_Time": data.c_Task_Start_Time ? new Date(data.c_Task_Start_Time).toISOString() : new Date().toISOString(),
+                                        "c_Task_End_Time": data.c_Task_End_Time ? new Date(data.c_Task_End_Time).toISOString() : new Date().toISOString(),
+                                        "c_Task_Description": data.c_Task_Description || "Default Description",
+                                        "c_Task_Is_All_Day": data.c_Task_Is_All_Day === true,
+                                        "c_CreatedAt": new Date().toISOString()
+                                    };
+                                    console.log("📤 Transformed Data:", requestData);
+                                    return JSON.stringify(requestData);
+                                }
+                                return JSON.stringify(data); // For other operations
+                            }
+                    },
+                    schema: {
+                        model: {
+                            id: "c_TimeTable_Id",
+                            fields: {
+                                c_TimeTable_Id: { type: "number", from: "c_TimeTable_Id" },
+                                title: { type: "string", from: "c_Task_Title" },
+                                start: { type: "date", from: "c_Task_Start_Time" },
+                                end: { type: "date", from: "c_Task_End_Time" },
+                                description: { type: "string", from: "c_Task_Description" },
+                                isAllDay: { type: "boolean", from: "c_Task_Is_All_Day" },
+                                c_Class_Id: { type: "number", from: "c_Class_Id" },
+                                c_Section_Id: { type: "number", from: "c_Section_Id" },
+                                c_Subject_Id: { type: "number", from: "c_Subject_Id" },
+                                c_Teacher_Id: { type: "number", from: "c_Teacher_Id" },
+                                c_CreatedAt: { type: "date", from: "c_CreatedAt" }
+                            }
+                        }
+                    }
+                }
+            }).data("kendoScheduler");
+        function refreshScheduler() {
+        if (ClassId && SectionId) {
+            Schedular.dataSource.read();
+        }
+    }
+        });
+    </script>

@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MVC</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.119/styles/kendo.default-v2.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MVC.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #ecf0f1;
+            display: flex;
+            height: 100vh;
+
+        }
+
+        #wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        #sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            height: 100vh;
+            padding: 20px;
+            transition: width 0.3s ease;
+            overflow: hidden;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        #sidebar.collapsed {
+            width: 60px;
+        }
+
+        #topbar {
+            width: calc(100% - 250px);
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 250px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: left 0.3s ease, width 0.3s ease;
+        }
+
+        #sidebar.collapsed+#topbar {
+            left: 60px;
+            width: calc(100% - 60px);
+        }
+
+        #content {
+            margin-left: 250px;
+            margin-top: 50px;
+            padding: 20px;
+            width: calc(100% - 250px);
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        #sidebar.collapsed+#topbar+#content {
+            margin-left: 60px;
+            width: calc(100% - 60px);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        ul li:hover {
+            background: #1abc9c;
+        }
+
+        ul li a {
+            color: white !important;
+            ;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+        }
+
+        #toggleSidebar {
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .k-badge-container {
+            position: relative;
+        }
+
+        .k-badge {
+            position: relative;
+            top: -40px;
+            right: -85px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <h2>Admin</h2>
+            <ul>
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="ClassList">Add Class</a></li>
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="SectionList">Add Section</a></li>
+
+
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="Register">Student</a></li>
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="StudentList">Student List</a>
+                </li>
+
+                <li>
+                    <span class="k-badge-container">
+                        <a class="k-link" asp-area="" asp-controller="Admin" asp-action="List2">Teacher List</a>
+                        <span id="badge"></span>
+                    </span>
+                </li>
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="TeacherSubjectIndex">Assign
+                        Subject</a>
+                </li>
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="AddExam">Exam TimeTable</a>
+                </li>
+                <li><a class="k-link" asp-area="" asp-controller="Admin" asp-action="Add_Notification">
+                        Notification</a></li>
+                <li><a class="k-link" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
+
+
+            </ul>
+        </div>
+        <!-- Top Navbar -->
+        <div id="topbar">
+            <span id="toggleSidebar">☰</span>
+            <span>Admin Panel Navigation</span>
+        </div>
+        <!-- Content Area -->
+        <div id="content">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function updateNotificationCount() {
+            $.ajax({
+                url: 'http://localhost:5110/api/TeacherApi/GetPendingTeacherCount',
+                type: 'GET',
+                success: function (data) {
+                    if (data > 0) {
+                        $("#badge").kendoBadge({
+                            text: data,
+                            themeColor: "warning",
+                            shape: "circle"
+                        });;
+                    } else {
+                        $('#badge').hide();
+                    }
+                }
+            });
+        }
+
+        // Update the count every 10 seconds
+        setInterval(updateNotificationCount, 3000);
+
+        // Initial call
+        updateNotificationCount();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("#toggleSidebar").on("click", function () {
+                $("#sidebar").toggleClass("collapsed");
+            });
+        });
+    </script>
+</body>
+
+</html>

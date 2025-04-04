@@ -1,0 +1,226 @@
+@model List<Repositories.Models.t_class>
+@{
+    ViewData["Title"] = "Class Management";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Class Management</h3>
+    <button type="button" id="btnadd" class="k-button k-button-lg k-button-solid-info" onclick="addForm()">✚ Add
+        Class</button>
+</div>
+<br>
+<div id="grid"></div>
+<span id="notification"></span>
+<div id="myKModal">
+    <form id="classForm"></form>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            buildForm();
+            loadWindows();
+            loadKendo();
+        });
+
+        function loadWindows() {
+            $("#myKModal").kendoWindow({
+                width: "600px",
+                title: "Class Form",
+                visible: false,
+                modal: true,
+                actions: ["Close"]
+            });
+            $("#notification").kendoNotification({
+                allowHideAfter: 1000,
+                width: 300,
+                position: {
+                    pinned: true,
+                    top: 30,
+                    right: 30,
+                }
+            });
+        }
+
+        function addForm() {
+            var form = $("#classForm").getKendoForm();
+            $("#classForm").data("kendoForm").setOptions({
+                formData: {
+                    c_class_id: "0",
+                    c_class_name: ""
+                }
+            });
+            openModal();
+        }
+
+        function editForm(id) {
+            var form = $("#classForm").getKendoForm();
+            $.ajax({
+                url: "http://localhost:5113/api/ClassApi/GetClassById/" + id,
+                type: 'GET',
+                success: function (response) {
+                    if (!response) {
+                        $("#notification").getKendoNotification().show("No data found!", "error");
+                        return;
+                    }
+
+                    if ($("#classForm").data("kendoForm")) {
+                        $("#classForm").data("kendoForm").setOptions({
+                            formData: {
+                                c_class_id: response.c_class_id || "0",
+                                c_class_name: response.c_class_name || ""
+                            }
+                        });
+                    } else {
+                        console.error("Kendo Form not initialized properly.");
+                    }
+                    openModal();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Edit Form Error:", xhr.responseText);
+                    $("#notification").getKendoNotification().show("Error fetching data!", "error");
+                }
+            });
+        }
+
+        function buildForm() {
+            $("#classForm").kendoForm({
+                formData: {
+                    c_class_id: "0",
+                    c_class_name: ""
+                },
+                items: [
+                    {
+                        field: "c_class_id",
+                        label: "",
+                        editor: function (container, options) {
+                            $('<input type="hidden" id="classid" name="' + options.field + '" value="0" />').appendTo(container);
+                        }
+                    },
+                    { field: "c_class_name", label: "Class Name", validation: { required: true } }
+                ],
+                buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info">Save</button> <button class="k-button-solid-base k-button-lg">Clear</button>',
+                submit: function (e) {
+                    e.preventDefault();
+                    const classData = {
+                        c_class_id: e.model.c_class_id,
+                        c_class_name: e.model.c_class_name
+                    };
+
+                    var url = e.model.c_class_id == 0 ? "http://localhost:5113/api/ClassApi/Create" : "http://localhost:5113/api/ClassApi/Update/" + e.model.c_class_id;
+                    var method = e.model.c_class_id == 0 ? "POST" : "PUT";
+
+                    $.ajax({
+                        url: url,
+                        method: method,
+                        contentType: "application/json",
+                        data: JSON.stringify(classData),
+                        success: function (result) {
+                            if (result.success) {
+                                $("#notification").getKendoNotification().show(e.model.c_class_id == 0 ? "Class Created Successfully!!" : "Class Updated Successfully!!", "success");
+                                $("#myKModal").data("kendoWindow").close();
+                                loadKendo();
+                            } else {
+                                $("#notification").getKendoNotification().show(result.message, "error");
+                                $("#myKModal").data("kendoWindow").close();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $("#notification").getKendoNotification().show("Error saving class!", "error");
+                            console.error("API Error:", xhr.responseText);
+                        }
+                    });
+                },
+                clear: function (ev) {
+                    $("#notification").getKendoNotification().hide();
+                }
+            });
+        }
+
+        function openModal() {
+            $("#myKModal").data("kendoWindow").center().open();
+        }
+
+        function closeModal() {
+            $("#myKModal").data("kendoWindow").close();
+        }
+
+        function loadKendo() {
+            $.ajax({
+                url: "http://localhost:5113/api/ClassApi/List",
+                type: 'GET',
+                success: function (response) {
+                    var grid = $("#grid").data("kendoGrid");
+                    if (grid) {
+                        // Set the new data source for the grid
+                        grid.dataSource.data(response);
+                    } else {
+                        // Initialize the grid if it doesn't exist
+                        $("#grid").kendoGrid({
+                            dataSource: {
+                                data: response,
+                                schema: {
+                                    model: {
+                                        fields: {
+                                            c_class_id: { type: "number" },
+                                            c_class_name: { type: "string" }
+                                        }
+                                    }
+                                },
+                                pageSize: 5
+                            },
+                            height: 400,
+                            pageable: true,
+                            sortable: true,
+                            filterable: true,
+                            columns: [
+                                {
+                                    title: "Edit",
+                                    template: `<button class='k-button k-button-solid-info' onclick='editForm(#=c_class_id#)'>&hellip;</button>`,
+                                    width: 50
+                                },
+                                { field: "c_class_name", title: "Class Name", width: "150px" },
+                                {
+                                    title: "Delete",
+                                    template: `<button class='k-button k-button-solid-error' onclick='deleteData(#=c_class_id#,"#=c_class_name#")'>✘</button>`,
+                                    width: 70
+                                }
+                            ],
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#responseMessage').addClass("alert alert-danger");
+                    $('#responseMessage').text('Error: ' + xhr.responseText);
+                }
+            });
+        }
+
+        function deleteData(id, name) {
+            var ans = confirm("Do you delete " + name + "?");
+            if (ans) {
+                $.ajax({
+                    url: "http://localhost:5113/api/ClassApi/Delete/" + id,
+                    type: 'DELETE',
+                    success: function (response) {
+                        if (response.success) {
+                            $("#notification").getKendoNotification().show("Class Deleted Successfully!", "success");
+                            loadKendo(); // Refresh the grid after deletion
+                        } else {
+                            $("#notification").getKendoNotification().show("Error deleting class: " + response.message, "error");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $("#notification").getKendoNotification().show("Error deleting class: " + xhr.responseText, "error");
+                    }
+                });
+            }
+        }
+    </script>
+}

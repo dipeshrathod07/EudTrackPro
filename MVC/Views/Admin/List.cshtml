@@ -1,0 +1,61 @@
+@model List<Repositories.Models.t_teacher>
+    @{
+    ViewData["Title"] = "Teacher";
+    Layout ="../Shared/_TestLayout.cshtml";
+    }
+<h2>Teacher List</h2>
+
+<div id="grid"></div>
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "http://localhost:5113/api/TeacherApi/GetAll", // Ensure this API route matches your controller
+                        dataType: "json"
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            c_teacher_id: { type: "number" },
+                            c_user_id: { type: "number" },
+                            c_phone_number: { type: "string" },
+                            c_date_of_birth: { type: "date" },
+                            c_qualification: { type: "string" },
+                            c_experience: { type: "number" },
+                            c_subject_expertise: { type: "string" },
+                            c_created_at: { type: "date" },
+                            c_status: { type: "string" }
+                        }
+                    }
+                },
+                pageSize: 10
+            },
+            height: 550,
+            sortable: true,
+            pageable: true,
+            filterable: true,
+            columns: [
+                { field: "c_teacher_id", title: "ID", width: "80px" },
+                { field: "c_user_id", title: "User ID", width: "100px" },
+                { field: "c_phone_number", title: "Phone", width: "150px" },
+                { field: "c_date_of_birth", title: "Date of Birth", width: "150px", format: "{0:yyyy-MM-dd}" },
+                { field: "c_qualification", title: "Qualification", width: "200px" },
+                { field: "c_experience", title: "Experience (Years)", width: "120px" },
+                { field: "c_subject_expertise", title: "Subjects", width: "250px" },
+                { field: "c_created_at", title: "Created At", width: "150px", format: "{0:yyyy-MM-dd HH:mm}" },
+                { field: "c_status", title: "Status", width: "100px" }
+            ]
+        });
+    });
+</script>
+}

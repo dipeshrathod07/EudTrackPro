@@ -1,0 +1,95 @@
+@{
+    ViewData["Title"] = "Notifications";
+    Layout = "../Shared/_TeacherLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <div id="menu" class="mb-3"></div>
+    <div id="notification"></div>
+
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">🔔 Notifications</h2>
+        </div>
+        <div class="card-body">
+            <div id="notification-grid"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            console.log("Notifications script loaded");
+
+            // Kendo UI Menu
+            $("#menu").kendoMenu({
+                orientation: "horizontal",
+                items: [
+                    { text: "Dashboard", url: "/Teacher/Dashboard" },
+                    { text: "Notifications", url: "/Teacher/Notifications" },
+                    { text: "Logout" }
+                ]
+            });
+
+            // Ensure Notification Div Exists
+            if ($("#notification").length === 0) {
+                $("<div id='notification'></div>").appendTo("body");
+            }
+
+            // Kendo UI Notification
+            $("#notification").kendoNotification({
+                position: { top: 20, right: 20 },
+                stacking: "down",
+                autoHideAfter: 5000
+            });
+
+            let notification = $("#notification").data("kendoNotification");
+
+            // Fetch and Display Notifications
+            $.ajax({
+                url: "http://localhost:5113/api/MaterialApi/GetNotification",
+                method: "GET",
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        $("#notification-grid").kendoGrid({
+                            dataSource: {
+                                data: response.notification,
+                                schema: {
+                                    model: {
+                                        fields: {
+                                            c_title_name: { type: "string" },
+                                            c_title_description: { type: "string" },
+                                            c_receiver: { type: "string" }
+                                        }
+                                    }
+                                },
+                                pageSize: 7
+                            },
+                            height: 400,
+                            sortable: true,
+                            pageable: {
+                                refresh: true,
+                                buttonCount: 5
+                            },
+                            filterable: true,
+                            resizable: true,
+                            reorderable: true,
+                            columns: [
+                                { field: "c_title_name", title: "📌 Title", width: "30%" },
+                                { field: "c_title_description", title: "📝 Description", width: "50%" },
+                                { field: "c_receiver", title: "👤 Receiver", width: "20%" }
+                            ]
+                        });
+                    } else {
+                        notification.show("Failed to fetch notifications.", "error");
+                    }
+                },
+                error: function () {
+                    notification.show("Error fetching data from API.", "error");
+                }
+            });
+        });
+    </script>
+}

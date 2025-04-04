@@ -1,0 +1,54 @@
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+<div id="main">
+    <div id="message"></div>
+<div id="RegistrationForm"></div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#RegistrationForm").kendoForm({
+            formData: {
+                C_UserName: "",
+                C_UserEmail: "",
+                C_Password: ""
+            },
+            items: [
+                {field: "C_UserName",label: "Username",validation: { required: true}},
+                {field: "C_UserEmail",label: "Email" ,validation: { required: true,email: true}},
+                {field: "C_Password",label: "Password" ,validation: {required: true}}
+            ],
+            buttonsTemplate: '<button class="k-button k-primary" id="RegistrationSubmit">Submit</button>'
+        })
+        $(document).on("click","#RegistrationSubmit",function(e) {
+                e.preventDefault();
+                var form = $("#RegistrationForm").data("kendoForm");
+                if(!form.validate())
+                {
+                    alert("validation fails");
+                    return ;
+                }
+                var formElement = $("#RegistrationForm");
+                var registerformData = {
+                    C_UserName: formElement.find("input[name='C_UserName']").val(),
+                    C_UserEmail: formElement.find("input[name='C_UserEmail']").val(),
+                    C_Password: formElement.find("input[name='C_Password']").val()
+                };
+                console.log(registerformData);
+                $.ajax({
+                    url: "http://localhost:5113/api/Register",
+                    type: "POST",
+                    contentType : "application/json",
+                    data: JSON.stringify(registerformData),
+                    success: function(response) {
+                        $("#message").text(response.message);
+                    },
+                    error: function(xhr) {
+                        $("#message").text(xhr.responseText);
+                    }
+                })
+            })
+    })
+</script>

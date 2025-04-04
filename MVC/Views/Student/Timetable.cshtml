@@ -1,0 +1,40 @@
+@{
+    Layout = "../Shared/_StudentLayout";
+}
+
+<div id="scheduler" style="width: 88vw;"></div>
+
+<script>
+    $(document).ready(function () {
+        $("#scheduler").kendoScheduler({
+            date: new Date(),  // Default selected date
+            height: 600,  // Set height
+            views: [
+                "day", "week", "month", "agenda"  // Different views
+            ],
+            editable: false, // Disable editing for now
+            eventTemplate: "<strong>#: description #</strong> <br> Teacher: #: teacherId #",
+
+            dataSource: new kendo.data.SchedulerDataSource({
+                transport: {
+                    read: {
+                        url: "http://localhost:5113/api/StudentApi/List",
+                        dataType: "json"
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "c_Subject_Id",
+                        fields: {
+                            subjectId: { type: "number", from: "c_Subject_Id" },
+                            teacherId: { type: "number", from: "c_Teacher_Id" },
+                            start: { type: "date", from: "c_Task_Start_Time" },
+                            end: { type: "date", from: "c_Task_End_Time" },
+                            description: { type: "string", from: "c_Task_Description" }
+                        }
+                    }
+                }
+            })
+        });
+    });
+</script>

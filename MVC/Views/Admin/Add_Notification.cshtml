@@ -1,0 +1,229 @@
+@model List<Repositories.Models.t_notification>
+@{
+    ViewData["Title"] = "Notification Management";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Notification Management</h3>
+    <button type="button" id="btnadd" class="k-button k-button-lg k-button-solid-info" onclick="addForm()">✚ Add
+        Notification</button>
+</div>
+<br>
+<div id="grid"></div>
+<span id="notification"></span>
+<div id="myKModal">
+    <form id="notificationForm"></form>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            buildForm();
+            loadWindows();
+            loadKendo();
+        });
+
+        function loadWindows() {
+            $("#myKModal").kendoWindow({
+                width: "600px",
+                title: "Add Notification",
+                visible: false,
+                modal: true,
+                actions: ["Close"]
+            });
+            $("#notification").kendoNotification({
+                allowHideAfter: 1000,
+                width: 300,
+                position: {
+                    pinned: true,
+                    top: 30,
+                    right: 30,
+                }
+            });
+        }
+
+        function addForm() {
+            var form = $("#notificationForm").getKendoForm();
+            $("#notificationForm").data("kendoForm").setOptions({
+                formData: {
+                    c_notification_id: "0",
+                    c_title_name: "",
+                    c_title_description: "",
+                    c_receiver: [],
+                    c_notification_date: new Date()
+                }
+            });
+            openModal();
+        }
+
+        function buildForm() {
+            const validationSuccess = $("#validation-success");
+
+            $("#notificationForm").kendoForm({
+                formData: {
+                    c_notification_id: "0",
+                    c_title_name: "",
+                    c_title_description: "",
+                    c_receiver: [],
+                    c_notification_date: new Date()
+                },
+                items: [
+                    {
+                        field: "c_notification_id",
+                        label: "",
+                        editor: function (container, options) {
+                            $('<input type="hidden" id="notificationid" name="' + options.field + '" value="0" />').appendTo(container);
+                        }
+                    },
+                    { field: "c_title_name", label: "Title", validation: { required: true } },
+                    { field: "c_title_description", label: "Description", validation: { required: true } },
+                    {
+                        field: "c_receiver", label: "Receiver", editor: "MultiSelect",
+                        editorOptions: {
+                            dataTextField: "text",
+                            dataValueField: "value",
+                            dataSource: [
+                                { text: "Student", value: "Student" },
+                                { text: "Teacher", value: "Teacher" }
+                            ]
+                        }
+                    },
+                    { field: "c_notification_date", label: "Notification Date", editor: "DatePicker" }
+                ],
+                buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info">Save</button> <button class="k-button-solid-base k-button-lg" onclick="clearForm()">Clear</button>',
+                validateField: function (e) {
+                    validationSuccess.html("");
+                },
+                submit: function (e) {
+                    e.preventDefault();
+                    var receiverValues = $("#c_receiver").data("kendoMultiSelect").value();
+                    const NotificationData = new FormData();
+                    NotificationData.append("c_notification_id", e.model.c_notification_id);
+                    NotificationData.append("c_title_name", e.model.c_title_name);
+                    NotificationData.append("c_title_description", e.model.c_title_description);
+                    NotificationData.append("c_receiver", receiverValues.join(',')); // Join array into a comma-separated string
+                    NotificationData.append("c_notification_date", kendo.toString(kendo.parseDate(e.model.c_notification_date), "yyyy-MM-dd"));
+
+                    var url = "http://localhost:5113/api/NotificationApi/Add";
+                    var method = "POST";
+
+                    $.ajax({
+                        url: url,
+                        method: method,
+                        contentType: false,
+                        processData: false,
+                        data: NotificationData,
+                        success: function (result) {
+                            if (result.success) {
+                                $("#notification").getKendoNotification().show("Notification Added Successfully!", "success");
+                                $("#myKModal").data("kendoWindow").close();
+                                loadKendo(); // Refresh the grid after adding
+                            } else {
+                                $("#notification").getKendoNotification().show(result.message, "error");
+                                $("#myKModal").data("kendoWindow").close();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $("#notification").getKendoNotification().show("Error adding notification: " + xhr.responseText, "error");
+                            console.error("API Error:", xhr.responseText);
+                        }
+                    });
+                    validationSuccess.html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+                }
+            });
+        }
+
+        function clearForm() {
+            $("#notificationForm").data("kendoForm").setOptions({
+                formData: {
+                    c_notification_id: "0",
+                    c_title_name: "",
+                    c_title_description: "",
+                    c_receiver: [],
+                    c_notification_date: new Date()
+                }
+            });
+        }
+
+        function openModal() {
+            $("#myKModal").data("kendoWindow").center().open();
+        }
+
+        function closeModal() {
+            $("#myKModal").data("kendoWindow").close();
+        }
+
+        function loadKendo() {
+            $.ajax({
+                url: "http://localhost:5113/api/NotificationApi/List",
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+                    $("#grid").kendoGrid({
+                        dataSource: {
+                            data: response,
+                            schema: {
+                                model: {
+                                    fields: {
+                                        c_notification_id: { type: "number" },
+                                        c_title_name: { type: "string" },
+                                        c_title_description: { type: "string" },
+                                        c_receiver: { type: "string" },
+                                        c_notification_date: { type: "date" }
+                                    }
+                                }
+                            },
+                            pageSize: 5
+                        },
+                        height: 400,
+                        pageable: true,
+                        sortable: true,
+                        filterable: true,
+                        columns: [
+                            { field: "c_title_name", title: "Title", width: "150px" },
+                            { field: "c_title_description", title: "Description", width: "200px" },
+                            { field: "c_receiver", title: "Receiver", width: "100px" },
+                            { field: "c_notification_date", title: "Notification Date", format: "{0:yyyy-MM-dd}", width: "120px" },
+                            {
+                                title: "Delete",
+                                template: `<button class='k-button k-button-solid-error' onclick='deleteData(#=c_notification_id#,"#=c_title_name#")'>✘</button>`,
+                                width: 70
+                            }
+                        ],
+                    });
+                },
+                error: function (xhr, status, error) {
+                    $('#responseMessage').addClass("alert alert-danger");
+                    $('#responseMessage').text('Error: ' + xhr.responseText);
+                }
+            });
+        }
+
+        function deleteData(id, name) {
+            var ans = confirm("Do you delete " + name + "?");
+            if (ans) {
+                $.ajax({
+                    url: "http://localhost:5113/api/NotificationApi/Delete/" + id,
+                    type: 'DELETE',
+                    success: function (response) {
+                        if (response.success) {
+                            $("#notification").getKendoNotification().show("Notification Deleted Successfully!", "success");
+                            loadKendo(); // Refresh the grid after deletion
+                        } else {
+                            $("#notification").getKendoNotification().show("Error deleting notification: " + response.message, "error");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $("#notification").getKendoNotification().show("Error deleting notification: " + xhr.responseText, "error");
+                    }
+                });
+            }
+        }
+    </script>
+}

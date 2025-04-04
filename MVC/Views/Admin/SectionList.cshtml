@@ -1,0 +1,254 @@
+@model List<Repositories.Models.t_section>
+@{
+    ViewData["Title"] = "Section Management";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Section Management</h3>
+    <button type="button" id="btnadd" class="k-button k-button-lg k-button-solid-info" onclick="addForm()">✚ Add
+        Section</button>
+</div>
+<br>
+<div id="grid"></div>
+<span id="notification"></span>
+<div id="myKModal">
+    <form id="sectionForm"></form>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            buildForm();
+            loadWindows();
+            setTimeout(()=>{
+                loadKendo();
+            },100)
+        });
+
+        function loadWindows() {
+            $("#myKModal").kendoWindow({
+                width: "600px",
+                title: "Section Form",
+                visible: false,
+                modal: true,
+                actions: ["Close"]
+            });
+            $("#notification").kendoNotification({
+                allowHideAfter: 1000,
+                width: 300,
+                position: {
+                    pinned: true,
+                    top: 30,
+                    right: 30,
+                }
+            });
+        }
+
+        function addForm() {
+            var form = $("#sectionForm").getKendoForm();
+            $("#sectionForm").data("kendoForm").setOptions({
+                formData: {
+                    c_section_id: "0",
+                    c_section_name: "",
+                    c_class_id: "",
+                    c_class_name:""
+                }
+            });
+            openModal();
+        }
+
+        function editForm(id) {
+            var form = $("#sectionForm").getKendoForm();
+            $.ajax({
+                url: "http://localhost:5113/api/SectionApi/GetSectionById/" + id,
+                type: 'GET',
+                success: function (response) {
+                    if (!response) {
+                        $("#notification").getKendoNotification().show("No data found!", "error");
+                        return;
+                    }
+
+                    if ($("#sectionForm").data("kendoForm")) {
+                        $("#sectionForm").data("kendoForm").setOptions({
+                            formData: {
+                                c_section_id: response.c_section_id || "0",
+                                c_section_name: response.c_section_name || "",
+                                c_class_id: response.c_class_id || ""
+                            }
+                        });
+                    } else {
+                        console.error("Kendo Form not initialized properly.");
+                    }
+                    openModal();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Edit Form Error:", xhr.responseText);
+                    $("#notification").getKendoNotification().show("Error fetching data!", "error");
+                }
+            });
+        }
+
+        function buildForm() {
+            // DataSource for classes
+            var classDataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "http://localhost:5113/api/ClassApi/List",
+                        dataType: "json"
+                    }
+                }
+            });
+
+            $("#sectionForm").kendoForm({
+                formData: {
+                    c_section_id: "0",
+                    c_section_name: "",
+                    c_class_id: ""
+                },
+                items: [
+                    {
+                        field: "c_section_id",
+                        label: "",
+                        editor: function (container, options) {
+                            $('<input type="hidden" id="sectionid" name="' + options.field + '" value="0" />').appendTo(container);
+                        }
+                    },
+                    { field: "c_section_name", label: "Section Name", validation: { required: true } },
+                    {
+                        field: "c_class_id", label: "Class", editor: "DropDownList",
+                        editorOptions: {
+                            dataTextField: "c_class_name",
+                            dataValueField: "c_class_id",
+                            dataSource: classDataSource,
+                            optionLabel: "-- Select Class --"
+                        }
+                    }
+                ],
+                buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info">Save</button> <button class="k-button-solid-base k-button-lg">Clear</button>',
+                submit: function (e) {
+                    e.preventDefault();
+                    const sectionData = {
+                        c_section_id: e.model.c_section_id,
+                        c_section_name: e.model.c_section_name,
+                        c_class_id: e.model.c_class_id
+                    };
+
+                    var url = e.model.c_section_id == 0 ? "http://localhost:5113/api/SectionApi/Create" : "http://localhost:5113/api/SectionApi/Update/" + e.model.c_section_id;
+                    var method = e.model.c_section_id == 0 ? "POST" : "PUT";
+
+                    $.ajax({
+                        url: url,
+                        method: method,
+                        contentType: "application/json",
+                        data: JSON.stringify(sectionData),
+                        success: function (result) {
+                            if (result.success) {
+                                $("#notification").getKendoNotification().show(e.model.c_section_id == 0 ? "Section Created Successfully!!" : "Section Updated Successfully!!", "success");
+                                $("#myKModal").data("kendoWindow").close();
+                                loadKendo();
+                            } else {
+                                $("#notification").getKendoNotification().show(result.message, "error");
+                                $("#myKModal").data("kendoWindow").close();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $("#notification").getKendoNotification().show("Error saving section!", "error");
+                            console.error("API Error:", xhr.responseText);
+                        }
+                    });
+                },
+                clear: function (ev) {
+                    $("#notification").getKendoNotification().hide();
+                }
+            });
+        }
+
+        function openModal() {
+            $("#myKModal").data("kendoWindow").center().open();
+        }
+
+        function closeModal() {
+            $("#myKModal").data("kendoWindow").close();
+        }
+
+        function loadKendo() {
+            $.ajax({
+                url: "http://localhost:5113/api/SectionApi/List",
+                type: 'GET',
+                success: function (response) {
+                    var grid = $("#grid").data("kendoGrid");
+                    if (grid) {
+                        // Set the new data source for the grid
+                        grid.dataSource.data(response);
+                    } else {
+                        // Initialize the grid if it doesn't exist
+                        $("#grid").kendoGrid({
+                            dataSource: {
+                                data: response,
+                                schema: {
+                                    model: {
+                                        fields: {
+                                            c_section_id: { type: "number" },
+                                            c_section_name: { type: "string" },
+                                            c_class_id: { type: "number" }
+                                        }
+                                    }
+                                },
+                                pageSize: 5
+                            },
+                            height: 400,
+                            pageable: true,
+                            sortable: true,
+                            filterable: true,
+                            columns: [
+                                {
+                                    title: "Edit",
+                                    template: `<button class='k-button k-button-solid-info' onclick='editForm(#=c_section_id#)'>&hellip;</button>`,
+                                    width: 50
+                                },
+                                { field: "c_section_name", title: "Section Name", width: "150px" },
+                                { field: "c_class_name", title: "Class", width: "150px" },
+                                {
+                                    title: "Delete",
+                                    template: `<button class='k-button k-button-solid-error' onclick='deleteData(#=c_section_id#,"#=c_section_name#")'>✘</button>`,
+                                    width: 70
+                                }
+                            ],
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#responseMessage').addClass("alert alert-danger");
+                    $('#responseMessage').text('Error: ' + xhr.responseText);
+                }
+            });
+        }
+
+        function deleteData(id, name) {
+            var ans = confirm("Do you delete " + name + "?");
+            if (ans) {
+                $.ajax({
+                    url: "http://localhost:5113/api/SectionApi/Delete/" + id,
+                    type: 'DELETE',
+                    success: function (response) {
+                        if (response.success) {
+                            $("#notification").getKendoNotification().show("Section Deleted Successfully!", "success");
+                            loadKendo(); // Refresh the grid after deletion
+                        } else {
+                            $("#notification").getKendoNotification().show("Error deleting section: " + response.message, "error");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $("#notification").getKendoNotification().show("Error deleting section: " + xhr.responseText, "error");
+                    }
+                });
+            }
+        }
+    </script>
+}

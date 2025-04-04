@@ -1,0 +1,179 @@
+@{
+    Layout = "../Shared/_StudentLayout";
+}
+
+<div id="leftPane" style="width: 100%; display: flex; width: 75vw; gap: 100px;">
+    <div id="profilePanel"></div>
+    <div id="chart" style="width: 100%;"></div>
+</div>
+<script>
+    function chart(id) {
+        $(document).ready(function () {
+            $.ajax({
+                url: `http://localhost:5113/api/StudentApi/GetByStudent/${id}`,
+                type: "GET",
+                success: function (response) {
+                    console.log("API Response:", response);
+
+                    // Initialize Kendo Chart
+                    $("#chart").kendoChart({
+                        title: {
+                            text: "Syllabus Completion Progress"
+                        },
+                        dataSource: {
+                            data: response
+                        },
+                        series: [{
+                            type: "bar",
+                            field: "completionPercentage",
+                            categoryField: "topic",
+                            name: "Completion %"
+                        }],
+                        categoryAxis: {
+                            labels: {
+                                rotation: -45
+                            }
+                        },
+                        valueAxis: {
+                            max: 100,
+                            title: { text: "Completion (%)" }
+                        },
+                        tooltip: {
+                            visible: true,
+                            format: "{0}%"
+                        }
+                    });
+                },
+                error: function (xhr) {
+                    console.log("Error fetching data", xhr);
+                }
+            });
+        });
+    }
+</script>
+
+
+@* <script>
+
+    $(document).ready(function () {
+     
+            fetchUserDetails(18);
+
+    });
+
+    function fetchUserDetails(userId) {
+        $.ajax({
+            url: `http://localhost:5113/api/StudentApi/GetStudent?id=${userId}`,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log("API Response:", data);
+
+                if (data && data.success && data.student) {
+                    let student = data.student;
+                    let profileTemplate = `
+                        <div style="text-align: center; padding: 20px;">
+                            <img id="userImage" src="../../student_images/${student.image ? student.image : 'default-avatar.png'}" 
+                                 alt="User Image" width="180px" height="180px">
+                            <h3>${student.fullName}</h3>
+                            <p class="text-muted">ID: ${student.studentId}</p>
+                        </div>
+                        <ul id="profileDetails">
+                            <li>DOB: ${new Date(student.dateOfBirth).toLocaleDateString()}</li>
+                            <li>Gender: ${student.gender}</li>
+                            <li>Class ID: ${student.classId}</li>
+                            <li>Section ID: ${student.sectionId}</li>
+                            <li>Guardian: ${student.guardianDetails}</li>
+                            <li>Enrollment Date: ${new Date(student.enrollmentDate).toLocaleDateString()}</li>
+                        </ul>`;
+
+                    $("#profilePanel").html(profileTemplate);
+
+                    $("#profileDetails").kendoPanelBar({
+                        expandMode: "single"
+                    });
+                } else {
+                    console.log("No student data found.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error fetching user data:", error);
+            }
+        });
+    }
+</script> *@
+
+<script>
+    $(document).ready(function () {
+        // First fetch the student ID using the user ID
+        $.ajax({
+            url: 'http://localhost:5113/api/StudentApi/GetStudentIdByUserId',
+            type: "GET",
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true // Ensures cookies (including session) are sent
+            },
+            success: function (response) {
+                console.log("GetStudentIdByUserId Response:", response);
+
+                if (response && response.success && response.studentId) {
+                    fetchUserDetails(response.studentId);
+                    chart(response.studentId); // Fallback to default ID if no studentId is returned
+                    // Use the studentId from the response
+                } else {
+                    console.log("No student ID found in response, using default ID 18");
+                    fetchUserDetails(5);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error fetching student ID:", error);
+                fetchUserDetails(17); // Fallback to default ID on error
+            }
+        });
+    });
+
+    function fetchUserDetails(userId) {
+        $.ajax({
+            url: `http://localhost:5113/api/StudentApi/GetStudent?id=${userId}`,
+            type: "GET",
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true // Ensures cookies (including session) are sent
+            },
+
+            success: function (data) {
+                console.log("API Response:", data);
+
+                if (data && data.success && data.student) {
+                    let student = data.student;
+                    let profileTemplate = `
+                    <div style="text-align: center; padding: 20px;">
+                        <img id="userImage" src="../../student_images/${student.image ? student.image : 'default-avatar.png'}" 
+                             alt="User Image" width="180px" height="180px">
+                        <h3>${student.fullName}</h3>
+                        <p class="text-muted">ID: ${student.studentId}</p>
+                    </div>
+                    <ul id="profileDetails">
+                        <li>DOB: ${new Date(student.dateOfBirth).toLocaleDateString()}</li>
+                        <li>Gender: ${student.gender}</li>
+                        <li>Class ID: ${student.classId}</li>
+                        <li>Section ID: ${student.sectionId}</li>
+                        <li>Guardian: ${student.guardianDetails}</li>
+                        <li>Enrollment Date: ${new Date(student.enrollmentDate).toLocaleDateString()}</li>
+                    </ul>`;
+
+                    $("#profilePanel").html(profileTemplate);
+
+                    $("#profileDetails").kendoPanelBar({
+                        expandMode: "single"
+                    });
+                } else {
+                    console.log("No student data found.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error fetching user data:", error);
+            }
+        });
+    }
+</script>

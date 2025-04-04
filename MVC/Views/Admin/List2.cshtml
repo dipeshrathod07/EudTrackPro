@@ -1,0 +1,148 @@
+@model List<Repositories.Models.t_teacher>
+@{
+    ViewData["Title"] = "Teacher";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Teacher List</h3>
+    <button type="button" id="btnExport" class="k-button k-button-lg k-button-solid-success "
+        onclick="exportToPDF()">Export to PDF</button>
+</div>
+<br>
+
+<div id="grid"></div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default-v2.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#grid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "http://localhost:5113/api/TeacherApi/GetAll",
+                            dataType: "json"
+                        }
+                    },
+                    schema: {
+                        model: {
+                            fields: {
+                                c_teacher_id: { type: "number" },
+                                //  c_user_id: { type: "number" },
+                                c_teacher_name: { type: "string" },
+                                c_email: { type: "string" },
+
+                                c_phone_number: { type: "string" },
+                                c_date_of_birth: { type: "date" },
+                                c_qualification: { type: "string" },
+                                c_experience: { type: "number" },
+                                c_subject_expertise: { type: "string" },
+                                c_created_at: { type: "date" },
+                                c_status: { type: "string" }
+                            }
+                        }
+                    },
+                    pageSize: 10
+                },
+                height: 550,
+                sortable: true,
+                pageable: true,
+                filterable: true,
+                columns: [
+                    { field: "c_teacher_id", title: "ID", width: "80px" },
+                    // { field: "c_user_id", title: "User ID", width: "100px" },
+                    { field: "c_teacher_name", title: "Teacher Name", width: "100px" },
+                    { field: "c_email", title: "Email", width: "150px" },
+
+                    { field: "c_phone_number", title: "Phone", width: "150px" },
+                    { field: "c_date_of_birth", title: "Date of Birth", width: "150px", format: "{0:yyyy-MM-dd}" },
+                    { field: "c_qualification", title: "Qualification", width: "200px" },
+                    { field: "c_experience", title: "Experience (Years)", width: "120px" },
+                    { field: "c_subject_expertise", title: "Subjects", width: "250px" },
+                    { field: "c_created_at", title: "Created At", width: "150px", format: "{0:yyyy-MM-dd HH:mm}" },
+                    {
+                        field: "c_status",
+                        title: "Status",
+                        width: "150px",
+                        template: function (dataItem) {
+                            let statusText = dataItem.c_status;
+                            let buttonClass = getStatusClass(statusText);
+                            return `<button class="status-btn ${buttonClass}" onclick="updateStatus(${dataItem.c_teacher_id}, '${statusText}', this)">${statusText}</button>`;
+                        }
+                    }
+                ]
+            });
+        });
+
+        // Function to return class based on status
+        function getStatusClass(status) {
+            switch (status.toLowerCase()) {
+                case "approved": return "k-button k-button-solid k-button-solid-success";
+                case "rejected": return "k-button k-button-solid k-button-solid-error";
+                default: return "k-button k-button-solid k-button-solid-warning"; // Pending
+            }
+        }
+
+        function updateStatus(teacherId, currentStatus, btn) {
+            let newStatus;
+
+            if (currentStatus.toLowerCase() === "pending") {
+                newStatus = "approved";
+            } else if (currentStatus.toLowerCase() === "approved") {
+                newStatus = "rejected";
+            } else {
+                newStatus = "approved";
+            }
+            console.log("Updating status for ID:", teacherId);
+
+            $.ajax({
+
+                url: `http://localhost:5113/api/TeacherApi/UpdateStatus/${teacherId}`,
+
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ c_status: newStatus }),
+                success: function () {
+                    $(btn).text(newStatus);
+                    $(btn).removeClass().addClass(`status-btn ${getStatusClass(newStatus)}`);
+                    $("#grid").data("kendoGrid").dataSource.read(); // Refresh Grid
+                },
+                error: function (xhr) {
+                    console.error("Error updating status:", xhr.responseText);
+                    alert("Error updating status: " + xhr.responseText);
+                }
+            });
+        }
+
+        function exportToPDF() {
+            $.ajax({
+                url: "http://localhost:5113/api/TeacherApi/ExportTeachersToPDF",
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    // Create a link element
+                    var a = document.createElement('a');
+                    var url = window.URL.createObjectURL(data);
+                    a.href = url;
+                    a.download = 'Teacher_List.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    // Clean up
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    $("#notification").getKendoNotification().show("Export successful!", "success");
+                },
+                error: function (xhr, status, error) {
+                    $("#notification").getKendoNotification().show("Error exporting data: " + xhr.responseText, "error");
+                }
+            });
+        }
+    </script>
+}

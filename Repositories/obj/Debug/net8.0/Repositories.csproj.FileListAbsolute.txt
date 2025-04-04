@@ -1,0 +1,89 @@
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\internship\Edutrack_Timetable\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\Edutrack_Timetable viral naitik mix\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\harsh lakhani\Desktop\EdutrackTeacher_Admin\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\nishi\Downloads\EdutrackTeacher_Admin\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\bin\Debug\net8.0\Repositories.deps.json
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\bin\Debug\net8.0\Repositories.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\bin\Debug\net8.0\Repositories.pdb
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\Repositories.pdb
+D:\Mansi\IDP\Internship\EdutrackTeacher_Admin_Student\Repositories\obj\Debug\net8.0\ref\Repositories.dll

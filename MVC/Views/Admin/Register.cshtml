@@ -1,0 +1,479 @@
+@model List<Repositories.Models.t_student>;
+@{
+    ViewData["Title"] = "Student Registration";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Student Registration</h3>
+    <button type="button" id="btnadd" class="k-button k-button-lg k-button-solid-info" onclick="addForm()">✚</button>
+    <button type="button" id="btnExport" class="k-button k-button-lg k-button-solid-success "
+        onclick="exportToPDF()">Export to PDF</button>
+</div>
+<br>
+<div id="grid"></div>
+<span id="notification"></span>
+<div id="myKModal">
+    <form id="studentForm"></form>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(() => {
+                buildForm();
+            }, 1000)
+
+            loadWindows();
+            setTimeout(() => {
+                loadKendo();
+            }, 300)
+        });
+
+        var classDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://localhost:5113/api/StudentApi/class_Read",
+                    dataType: "json"
+                }
+            }
+        });
+
+        var teacherDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://localhost:5113/api/StudentApi/teacher_Read",
+                    dataType: "json"
+                }
+            }
+        });
+
+        function loadWindows() {
+            $("#myKModal").kendoWindow({
+                width: "600px",
+                title: "Student Form",
+                visible: false,
+                modal: true,
+                actions: ["Close"]
+            });
+            $("#notification").kendoNotification({
+                allowHideAfter: 1000,
+                width: 300,
+                position: {
+                    pinned: true,
+                    top: 30,
+                    right: 30,
+                }
+            });
+        }
+
+        function addForm() {
+            var form = $("#studentForm").getKendoForm();
+            $("#studentForm").data("kendoForm").setOptions({
+                formData: {
+                    c_student_id: "0",
+                    c_user_id: "0",
+
+                    c_full_name: "",
+                    c_email: "",
+                    c_password: "",
+                    c_date_of_birth: "",
+                    c_gender: "",
+                    c_teacher_id: "",
+                    c_class_id: "",
+                    c_section_id: "",
+                    c_guardian_details: "",
+                    c_enrollment_date: "",
+                    c_image: "",
+                    c_status: "true"
+                }
+            });
+            openModal();
+        }
+
+        function editForm(id) {
+            var form = $("#studentForm").getKendoForm();
+            $.ajax({
+                url: "http://localhost:5113/api/StudentApi/GetStudentById/" + id,
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log("API Response:", response);
+
+                    if (!response) {
+                        $("#notification").getKendoNotification().show("No data found!", "error");
+                        return;
+                    }
+
+                    if ($("#studentForm").data("kendoForm")) {
+                        $("#studentForm").data("kendoForm").setOptions({
+                            formData: {
+                                c_student_id: response.c_student_id || "0",
+                                c_user_id: response.c_user_id || "0",
+
+                                c_full_name: response.c_full_name || "",
+                                c_email: response.c_email || "",
+                                c_password: response.c_password || "",
+
+                                c_date_of_birth: response.c_date_of_birth || "",
+                                c_gender: response.c_gender || "",
+                                c_teacher_id: response.c_teacher_id || "",
+                                c_teacher_name: response.c_teacher_name || "",
+                                c_class_id: response.c_class_id || "",
+                                c_class_name: response.c_class_name || "",
+                                c_section_id: response.c_section_id || "",
+                                c_section_name: response.c_section_name || "",
+                                c_guardian_details: response.c_guardian_details || "",
+                                c_enrollment_date: response.c_enrollment_date || "",
+                                c_image: response.c_image || null,
+                                c_status: response.c_status || "true"
+                            }
+                        });
+
+                        var teacherDropdown = $("#c_teacher_name").data("kendoDropDownList");
+                        if (teacherDropdown) {
+                            teacherDropdown.value(response.c_teacher_name);
+                        }
+
+                        var classDropdown = $("#c_class_name").data("kendoDropDownList");
+                        if (classDropdown) {
+                            classDropdown.value(response.c_class_name);
+                        }
+
+                        var sectionDropdown = $("#c_section_name").data("kendoDropDownList");
+                        if (sectionDropdown) {
+                            sectionDropdown.value(response.c_section_name);
+                        }
+                    } else {
+                        console.error("Kendo Form not initialized properly.");
+                    }
+                    openModal();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Edit Form Error:", xhr.responseText);
+                    $("#notification").getKendoNotification().show("Error fetching data!", "error");
+                }
+            });
+        }
+
+        function buildForm() {
+            const validationSuccess = $("#validation-success");
+
+            // DataSource for classes
+
+            // Function to get sections based on class ID
+            function getSectionDataSource(classId) {
+                return new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: "http://localhost:5113/api/StudentApi/section_Read/?id=" + classId,
+                            dataType: "json"
+                        }
+                    }
+                });
+            }
+
+            $("#studentForm").kendoForm({
+                formData: {
+                    c_student_id: "0",
+                    c_user_id: "0",
+                    c_full_name: "",
+                    c_email: "",
+                    c_password: "",
+                    c_date_of_birth: "",
+                    c_gender: "",
+                    c_class_id: "",
+                    c_teacher_id: "",
+                    c_section_id: "",
+                    c_guardian_details: "",
+                    c_enrollment_date: "",
+                    c_image: "",
+                    c_status: "true"
+                },
+                items: [
+                    {
+                        field: "c_student_id",
+                        label: "",
+                        editor: function (container, options) {
+                            $('<input type="hidden" id="studentid" name="' + options.field + '" value="0" />').appendTo(container);
+                        }
+                    },
+                    {
+                        field: "c_user_id",
+                        label: "",
+                        editor: function (container, options) {
+                            $('<input type="hidden" id="userid" name="' + options.field + '" value="0" />').appendTo(container);
+                        }
+                    },
+                    //  { field: "c_user_id", label: "User ID"},
+
+
+                    { field: "c_full_name", label: "Full Name", validation: { required: true } },
+                    { field: "c_email", label: "Email", validation: { required: true, email: true } },
+                    { field: "c_password", label: "Password", validation: { required: true, password: true } },
+
+                    { field: "c_date_of_birth", label: "Date of Birth", editor: "DatePicker" },
+                    {
+                        field: "c_gender", label: "Gender", editor: "DropDownList",
+                        editorOptions: { dataSource: ["Male", "Female", "Other"], optionLabel: "Select Gender" }
+                    },
+
+                    {
+                        field: "c_teacher_id", label: "Teacher", editor: "DropDownList",
+                        editorOptions: {
+                            dataTextField: "c_teacher_name",
+                            dataValueField: "c_teacher_id",
+                            dataSource: teacherDataSource,
+                            optionLabel: "-- Select Teacher --",
+
+                        }
+                    },
+                    {
+                        field: "c_class_id", label: "Class", editor: "DropDownList",
+                        editorOptions: {
+                            dataTextField: "c_class_name",
+                            dataValueField: "c_class_id",
+                            dataSource: classDataSource,
+                            optionLabel: "-- Select Class --",
+                            change: function (e) {
+                                var classId = this.value();
+                                var sectionDropdown = $("#c_section_id").data("kendoDropDownList");
+                                if (sectionDropdown) {
+                                    sectionDropdown.setDataSource(getSectionDataSource(classId));
+                                    sectionDropdown.enable(true);
+                                }
+                            }
+                        }
+                    },
+                    {
+                        field: "c_section_id", label: "Section", editor: "DropDownList",
+                        editorOptions: {
+                            dataTextField: "c_section_name",
+                            dataValueField: "c_section_id",
+                            dataSource: getSectionDataSource(0), // Default empty data source
+                            optionLabel: "-- Select Section --",
+                            enable: false
+                        }
+                    },
+                    { field: "c_guardian_details", label: "Guardian Details" },
+                    { field: "c_enrollment_date", label: "Enrollment Date", editor: "DatePicker" },
+                    {
+                        field: "c_image", label: "Image:",
+                        editor: function (container, options) {
+                            $('<input type="file" name="' + options.field + '" />')
+                                .appendTo(container)
+                                .kendoUpload();
+                        }
+                    },
+                    {
+                        field: "c_status", label: "Status", editor: "DropDownList",
+                        editorOptions: { dataSource: ["Active", "Inactive"], optionLabel: "Select Status" }
+                    }
+                ],
+                buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info">Save</button> <button class="k-button-solid-base k-button-lg">Clear</button>',
+                validateField: function (e) {
+                    validationSuccess.html("");
+                },
+                submit: function (e) {
+                    e.preventDefault();
+                    debugger
+                    const StudentData = new FormData();
+                    StudentData.append("c_student_id", e.model.c_student_id);
+                    StudentData.append("c_user_id", e.model.c_user_id);
+
+                    StudentData.append("c_full_name", e.model.c_full_name);
+                    StudentData.append("c_email", e.model.c_email);
+                    StudentData.append("c_password", e.model.c_password);
+                    const dob = kendo.toString(kendo.parseDate(e.model.c_date_of_birth), "yyyy-MM-dd");
+                    const enrollmentDate = kendo.toString(kendo.parseDate(e.model.c_enrollment_date), "yyyy-MM-dd");
+
+                    StudentData.append("c_date_of_birth", dob);
+
+                    // StudentData.append("c_date_of_birth", e.model.c_date_of_birth);
+                    StudentData.append("c_gender", e.model.c_gender);
+                    StudentData.append("c_teacher_id", e.model.c_teacher_id);
+
+                    StudentData.append("c_class_id", e.model.c_class_id);
+                    StudentData.append("c_section_id", e.model.c_section_id);
+                    StudentData.append("c_guardian_details", e.model.c_guardian_details);
+                    StudentData.append("c_enrollment_date", enrollmentDate);
+
+                    // StudentData.append("c_enrollment_date", e.model.c_enrollment_date);
+                    //StudentData.append("c_status", e.model.c_status);
+                    StudentData.append("c_status", e.model.c_status === "Active" ? true : false);
+
+
+                    var imageFile = $("input[name=c_image]")[0].files[0];
+                    if (imageFile) {
+                        StudentData.append("StudentImage", imageFile);
+                    }
+                    for (let [key, value] of StudentData.entries()) {
+                        console.log(key, value);
+                    }
+
+                    var url = e.model.c_student_id == 0 ? "http://localhost:5113/api/StudentApi/Register" : "http://localhost:5113/api/StudentApi/Update/" + e.model.c_student_id;
+                    var method = e.model.c_student_id == 0 ? "POST" : "PUT";
+
+                    $.ajax({
+                        url: url,
+                        method: method,
+                        contentType: false,
+                        processData: false,
+                        data: StudentData,
+                        enctype: "multipart/form-data",
+                        success: function (result) {
+                            if (result.success) {
+                                $("#notification").getKendoNotification().show(e.model.c_student_id == 0 ? "Insert Successfully!!" : "Update Successfully!!", "success");
+                                $("#myKModal").data("kendoWindow").close();
+                                loadKendo();
+                            } else {
+                                $("#notification").getKendoNotification().show(result.message, "error");
+                                $("#myKModal").data("kendoWindow").close();
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            $("#notification").getKendoNotification().show("Not inserted or updated some error", "error");
+                            console.error("API Error:", xhr.responseText);
+                        }
+                    });
+                    validationSuccess.html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+                },
+                clear: function (ev) {
+                    validationSuccess.html("");
+                }
+            });
+        }
+
+        function openModal() {
+            $("#myKModal").data("kendoWindow").center().open();
+        }
+
+        function closeModal() {
+            $("#myKModal").data("kendoWindow").close();
+        }
+
+        function loadKendo() {
+            const staticPath = "../../student_images/";
+            $.ajax({
+                url: "http://localhost:5113/api/StudentApi/List",
+                type: 'GET',
+                success: function (response) {
+                    console.log(response);
+                    $("#grid").kendoGrid({
+                        dataSource: {
+                            data: response,
+                            schema: {
+                                model: {
+                                    fields: {
+                                        c_student_id: { type: "number" },
+                                        c_full_name: { type: "string" },
+                                        c_email: { type: "string" },
+                                        c_date_of_birth: { type: "date" },
+                                        c_gender: { type: "string" },
+                                        c_teacher_id: { type: "number" },
+
+                                        c_class_id: { type: "number" },
+                                        c_section_id: { type: "number" },
+                                        c_guardian_details: { type: "string" },
+                                        c_enrollment_date: { type: "date" },
+                                        c_image: { type: "string" },
+                                        c_status: { type: "string" }
+                                    }
+                                }
+                            },
+                            pageSize: 5
+                        },
+                        height: 400,
+                        pageable: true,
+                        sortable: true,
+                        filterable: true,
+                        columns: [
+                            {
+                                title: "Edit",
+                                template: `<button class='k-button k-button-solid-info' onclick='editForm(#=c_student_id#)'>&hellip;</button>`,
+                                width: 50
+                            },
+                            { field: "c_full_name", title: "Full Name", width: "150px" },
+                            { field: "c_email", title: "Email", width: "100px" },
+                            { field: "c_date_of_birth", title: "Date of Birth", format: "{0:yyyy-MM-dd}", width: "100px" },
+                            { field: "c_gender", title: "Gender", width: "80px" },
+                            { field: "c_teacher_name", title: "Teacher", width: "100px" },
+
+                            { field: "c_class_name", title: "Class", width: "100px" },
+                            { field: "c_section_name", title: "Section", width: "100px" },
+                            { field: "c_guardian_details", title: "Guardian Details", width: "150px" },
+                            { field: "c_enrollment_date", title: "Enrollment Date", format: "{0:yyyy-MM-dd}", width: "120px" },
+                            { field: "c_status", title: "Status", width: "80px" },
+                            {
+                                field: "c_image", title: "Image", template: `<img src='${staticPath}#=c_image#' alt='Student Image' style='width:50px;height:50px;border-radius:50%;' />`,
+                                width: 100
+                            },
+                            {
+                                title: "Delete",
+                                template: `<button class='k-button k-button-solid-error' onclick='deleteData(#=c_student_id#,"#=c_full_name#")'>✘</button>`,
+                                width: 70
+                            }
+                        ],
+                    });
+                },
+                error: function (xhr, status, error) {
+                    $('#responseMessage').addClass("alert alert-danger");
+                    $('#responseMessage').text('Error: ' + xhr.responseText);
+                }
+            });
+        }
+
+        function deleteData(id, name) {
+            var ans = confirm("Do you delete " + name + "?");
+            if (ans) {
+                $.ajax({
+                    url: "http://localhost:5113/api/StudentApi/Delete/" + id,
+                    type: 'DELETE',
+                    success: function (response) {
+                        if (response.success) {
+                            $("#notification").getKendoNotification().show("Student Deleted Successfully!", "success");
+                            loadKendo(); // Refresh the grid after deletion
+                        } else {
+                            $("#notification").getKendoNotification().show("Error deleting student: " + response.message, "error");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $("#notification").getKendoNotification().show("Error deleting student: " + xhr.responseText, "error");
+                    }
+                });
+            }
+        }
+
+        function exportToPDF() {
+            $.ajax({
+                url: "http://localhost:5113/api/StudentApi/ExportStudentsToPDF",
+                type: 'GET',
+                xhrFields: {
+                    responseType: 'blob' // Important for handling binary data
+                },
+                success: function (data) {
+                    // Create a link element
+                    var a = document.createElement('a');
+                    var url = window.URL.createObjectURL(data);
+                    a.href = url;
+                    a.download = 'Student_List.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    // Clean up
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    $("#notification").getKendoNotification().show("Export successful!", "success");
+                },
+                error: function (xhr, status, error) {
+                    $("#notification").getKendoNotification().show("Error exporting data: " + xhr.responseText, "error");
+                }
+            });
+        }
+    </script>
+}

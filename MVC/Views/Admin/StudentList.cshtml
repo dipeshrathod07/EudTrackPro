@@ -1,0 +1,55 @@
+    @{
+        ViewData["Title"] = "Teacher";
+        Layout = "../Shared/_TestLayout.cshtml";
+    }
+<div id="treeList"></div>
+
+ 
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default-v2.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+<script>
+    
+    $(document).ready(function () {
+        console.log("Document ready, initializing TreeList...");
+
+        // Debug API call
+
+
+        $("#treeList").kendoTreeList({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "http://localhost:5113/api/StudentApi/StudentList",
+                        dataType: "json",
+                        complete: function (e) {
+                            console.log("Kendo Data Fetch Complete:", e);
+                        }
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "id",
+                        parentId: "parentId",
+                        fields: {
+                            id: { type: "string" },  // 👈 Change type to string
+                            parentId: { type: "string", nullable: true },
+                            name: { type: "string" }
+                        }
+                    }
+                }
+            },
+            columns: [
+                { field: "name", title: "Name", width: 200 }
+            ],
+            height: 400,
+            resizable: true,
+           
+        });
+    });
+
+</script>
+}

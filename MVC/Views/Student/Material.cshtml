@@ -1,0 +1,136 @@
+@{
+    Layout = "../Shared/_StudentLayout";
+}
+@* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/MVC.styles.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/lib/kendo/kendo.default-v2.min.css" />
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-asp-append-version="true"></script>
+<script src="~/lib/kendo/kendo.all.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2023.3.1010/js/pdfjs.min.js"></script> *@
+
+<div class="container mt-4">
+    <div id="menu" class="mb-3" style="width: 80vw;></div>
+    <div class=" card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">All Uploaded Materials</h2>
+        </div>
+        <div class="card-body">
+            <p class="text-muted text-center">Here you can view all uploaded teaching materials.</p>
+            <div id="materialsGrid"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var apiUrl = "http://localhost:5113/api/StudentApi/GetMaterialsByTeacher/2";
+
+        $.ajax({
+            url: apiUrl,
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                console.log("API Response:", response);
+
+                if (response && response.success && Array.isArray(response.data)) {
+                    loadGrid(response.data);
+                } else {
+                    console.error("Unexpected API response format:", response);
+                    showNotification("Failed to fetch materials.", "error");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("API Error:", xhr.responseText);
+                showNotification("Error fetching data.", "error");
+            }
+        });
+
+        function loadGrid(data) {
+            console.log("Grid Data:", data);
+
+            $("#materialsGrid").kendoGrid({
+                dataSource: {
+                    data: data,
+                    pageSize: 5
+                },
+                height: 500,
+                sortable: true,
+                filterable: true,
+                pageable: {
+                    refresh: true,
+                    pageSizes: true,
+                    buttonCount: 5
+                },
+                columns: [
+                    {
+                        field: "c_File_Name",
+                        title: "File Name",
+                        width: "30%",
+                        template: function (dataItem) {
+                            return extractOriginalFileName(dataItem.c_File_Name);
+                        }
+                    },
+                    { field: "c_Subject_Name", title: "Subject", width: "15%" },
+                    { field: "c_Teacher_Name", title: "Teacher", width: "15%" },
+                    {
+                        field: "c_Upload_Date",
+                        title: "Upload Date",
+                        width: "20%",
+                        template: "#= kendo.toString(new Date(c_Upload_Date), 'dd MMM yyyy') #"
+                    },
+                    {
+                        title: "Actions",
+                        width: "20%",
+                        template: "<button class='k-button k-primary' onclick='openPdfInModal(\"#= c_File_Path #\")'>View File</button>"
+                    }
+                ]
+            });
+        }
+    });
+
+    function openPdfInModal(filePath) {
+        if (!filePath) {
+            showNotification("Invalid file path.", "error");
+            return;
+        }
+
+        var fileUrl = filePath.startsWith("/") ? filePath : "/" + filePath;
+        console.log("Opening PDF:", fileUrl);
+        $("#pdfViewer").attr("src", fileUrl);
+        $("#pdfModal").modal("show");
+    }
+
+    function extractOriginalFileName(fullFileName) {
+        if (!fullFileName) return "Unknown File";
+        return fullFileName.replace(/^[a-zA-Z0-9-]+_/, "");
+    }
+
+    function showNotification(message, type) {
+        $("#notification").kendoNotification({
+            position: { top: 20, right: 20 },
+            stacking: "down",
+            autoHideAfter: 5000
+        }).data("kendoNotification").show(message, type);
+    }
+</script>
+
+<!-- ✅ Bootstrap Modal for Viewing PDFs -->
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true"
+    data-bs-backdrop="false" data-bs-keyboard="true" style="margin-top: 20px;">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">View Material</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" src="" width="100%" height="500px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>

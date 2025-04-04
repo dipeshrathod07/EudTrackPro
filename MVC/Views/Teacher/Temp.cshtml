@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kendo Gantt Chart - Year Selection</title>
+    @* <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.119/styles/kendo.default-v2.min.css"> *@
+    @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+    @* <script src="https://kendo.cdn.telerik.com/2024.1.119/js/kendo.all.min.js"></script> *@
+</head>
+
+<body>
+
+    <div id="gantt"></div>
+    <div id="notification"></div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#notification").kendoNotification({
+                position: {
+                    top: 20,  // Adjusts the notification from the top
+                    right: 20  //
+                },
+                stacking: "down",
+                autoHideAfter: 2000
+            });
+
+            // Retrieve the notification instance properly
+            var notification = $("#notification").data("kendoNotification");
+
+            // Ensure the notification widget is properly initialized before use
+            if (!notification) {
+                console.error("Kendo UI Notification failed to initialize.");
+                return;
+            }
+
+            // Function to fetch data from API and show notification
+            function fetchNotification() {
+                $.ajax({
+                    url: "http://localhost:5160/api/OverviewApi/notifications",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.result !== undefined && data.result > 0) {
+                            notification.show("New teacher added: " + data.result, "info");
+                        }
+                    },
+                    error: function () {
+                        notification.show("Failed to fetch data.", "error");
+                    }
+                });
+            }
+
+            // Fetch notification on page load
+            fetchNotification();
+            var yearDropdown;
+            var gantt;
+
+            function loadGanttData(yearID) {
+                var ganttDataSource = new kendo.data.GanttDataSource({
+                    transport: {
+                        read: {
+                            url: http://localhost:5160/api/OverviewApi/completion/all?yearID=${yearID},
+                            dataType: "json",
+                            type: "GET"
+                        },
+                        update: {
+                            url: "http://localhost:5160/api/OverviewApi/completion/update",
+                            dataType: "json",
+                            type: "PUT",
+                            contentType: "application/json"
+                        }
+                    },
+                    schema: {
+                        data: function (response) {
+                            return response.map(item => ({
+                                id: item.c_completion_id,
+                                title: item.c_subject_name,
+                                start: kendo.parseDate(item.c_start_date, "dd/MM/yyyy"),
+                                end: kendo.parseDate(item.c_end_date, "dd/MM/yyyy"),
+                                percentComplete: item.c_completion_percentage / 100,
+                                subjectId: item.c_subject_id,
+                                completionId: item.c_completion_id
+                            }));
+                        }
+                    }
+                });
+
+                if (gantt) {
+                    // Refresh existing Gantt chart
+                    gantt.setDataSource(ganttDataSource);
+                    ganttDataSource.read();
+                } else {
+                    // Initialize Gantt chart if not already created
+                    gantt = $("#gantt").kendoGantt({
+                        dataSource: ganttDataSource,
+                        views: ["year", "month", "week"],
+                        currentView: "year",
+                        height: 600,
+                        showWorkHours: false,
+                        showWorkDays: false,
+                        editable: {
+                            update: true,
+                            destroy: false,
+                            create: false,
+                            mode: "popup"
+                        },
+                        columns: [
+                            { field: "title", title: "Subject", width: 200, editable: false },
+                            { field: "start", title: "Start Date", width: 200, format: "{0:dd/MM/yyyy}" },
+                            { field: "end", title: "End Date", width: 200, format: "{0:dd/MM/yyyy}" },
+                            { field: "percentComplete", title: "Completion", width: 120, format: "{0:p0}" }
+                        ],
+                        toolbar: [
+                            { template: "<label style='margin-right:5px;'>Select Year:</label> <input id='yearDropdown' style='width:150px;' />" }
+                        ],
+                        save: function (e) {
+                            var updatedTask = e.task;
+                            var updatedValues = e.values;
+
+                            var updatedData = {
+                                c_completion_id: updatedTask.completionId || 0,
+                                c_subject_id: updatedTask.subjectId || 0,
+                                c_subject_name: updatedTask.title,
+                            };
+
+                            if (updatedValues.start) {
+                                updatedData.c_start_date = kendo.toString(updatedValues.start, "dd/MM/yyyy");
+                            }
+
+                            if (updatedValues.end) {
+                                updatedData.c_end_date = kendo.toString(updatedValues.end, "dd/MM/yyyy");
+                                updatedData.c_duration = (updatedValues.end - (updatedValues.start || updatedTask.start)) / (1000 * 60 * 60);
+                            }
+
+                            if (updatedValues.percentComplete !== undefined) {
+                                updatedData.c_completion_percentage = Math.round(updatedValues.percentComplete * 100);
+                            }
+
+                            $.ajax({
+                                url: "http://localhost:5160/api/OverviewApi/completion/update",
+                                type: "PUT",
+                                contentType: "application/json",
+                                data: JSON.stringify(updatedData),
+                                success: function () {
+                                    gantt.dataSource.read(); // Refresh data
+                                }
+                            });
+                        },
+                        edit: function (e) {
+                            e.container.find("input[name='title']").attr("disabled", true);
+                        }
+                    }).data("kendoGantt");
+
+                    // Initialize Year Dropdown AFTER Gantt Chart is Rendered
+                    $.ajax({
+                        url: "http://localhost:5160/api/OverviewApi/completion/getYear",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (years) {
+                            if (years.length === 0) return;
+
+                            yearDropdown = $("#yearDropdown").kendoDropDownList({
+                                dataSource: years.map(y => ({ text: y.c_year_name, value: y.c_year_id })),
+                                dataTextField: "text",
+                                dataValueField: "value",
+                                change: function () {
+                                    var selectedYearID = this.value();
+                                    loadGanttData(selectedYearID);
+                                }
+                            }).data("kendoDropDownList");
+
+                            // Set default value and load initial data
+                            yearDropdown.value(years[0].c_year_id);
+                            loadGanttData(years[0].c_year_id);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching years:", error);
+                        }
+                    });
+                }
+            }
+
+            // Initial Gantt Load
+            $.ajax({
+                url: "http://localhost:5160/api/OverviewApi/completion/getYear",
+                type: "GET",
+                dataType: "json",
+                success: function (years) {
+                    if (years.length > 0) {
+                        loadGanttData(years[0].c_year_id);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching years:", error);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

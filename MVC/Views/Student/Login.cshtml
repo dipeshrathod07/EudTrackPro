@@ -1,0 +1,124 @@
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div id="alert" style="display:none">
+    <h6 id="message"></h6>
+</div>
+
+
+<form id="loginForm"></form>
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize Kendo Form
+            $("#loginForm").kendoForm({
+                formData: {
+                    Email: "",
+                    Password: "",
+                    Role: "" // Add Role to initial form data
+                },
+                items: [
+                    {
+                        field: "Email",
+                        label: "Email",
+                        validation: {
+                            required: { message: "Email is required." },
+                            email: { message: "Please enter a valid email address." }
+                        }
+                    },
+                    {
+                        field: "Password",
+                        label: "Password:",
+                        validation: {
+                            required: { message: "Password is required." }
+                        },
+                        editor: function (container, options) {
+                            $("<input>", {
+                                type: "password",
+                                name: options.field,
+                                required: "required",
+                                class: "k-textbox"
+                            }).appendTo(container);
+                        }
+                    },
+                    {
+                        field: "Role",
+                        label: "Role:",
+                        validation: {
+                            required: { message: "Role is required." }
+                        },
+                        editor: function (container, options) {
+                            $("<input>", {
+                                name: options.field,
+                                required: "required"
+                            })
+                                .appendTo(container)
+                                .kendoDropDownList({
+                                    dataSource: [
+                                        { text: "Admin", value: "Admin" },
+                                        { text: "Teacher", value: "Teacher" },
+                                        { text: "Student", value: "Student" }
+                                        // Add more roles here if needed
+                                    ],
+                                    dataTextField: "text",
+                                    dataValueField: "value",
+                                    optionLabel: "Select a role..." // Placeholder text
+                                });
+                        }
+                    }
+                ],
+                buttonsTemplate: '<button type="submit" class="k-button k-primary">Login</button>'
+            });
+
+            // Kendo Validator for Client-side Validation
+            var validator = $("#loginForm").kendoValidator().data("kendoValidator");
+
+            $("#loginForm").on("submit", function (e) {
+                e.preventDefault();
+                $("#alert").removeClass("alert alert-success alert-danger").hide();
+
+                if (validator.validate()) {
+                    var formData = {
+                        Email: $("input[name='Email']").val(),
+                        Password: $("input[name='Password']").val(),
+                        Role: $("input[name='Role']").val() // Add Role to form data
+                    };
+
+                    $.ajax({
+                        url: "http://localhost:5113/api/Register/Login",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        xhrFields: {
+                            withCredentials: true // Ensures cookies (including session) are sent
+                        },
+                        success: function (res) {
+                            if (res.success) {
+
+                                $("#alert").addClass("alert alert-success").show();
+                                $("#message").text(res.message || "Logged In");
+                                if (res.redirectUrl) {
+                                    window.location.href = res.redirectUrl; // Remove setTimeout for instant test
+                                }
+                            } else {
+                                $("#alert").addClass("alert alert-danger").show();
+                                $("#message").text(res.message);
+                            }
+                        },
+                        error: function (error) {
+                            $("#alert").addClass("alert alert-danger").show();
+                            $("#message").text(error.responseJSON?.message || "Login failed.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

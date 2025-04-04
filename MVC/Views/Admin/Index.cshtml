@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "../Shared/_TestLayout.cshtml";
+}
+
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Students</div>
+            <div class="card-body">
+                <h3 class="card-title" id="studentCount"></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Total Teachers</div>
+            <div class="card-body">
+                <h3 class="card-title" id="teacherCount"></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Total Classes</div>
+            <div class="card-body">
+                <h3 class="card-title" id="classCount"></h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        fetchDashboardCounts();
+    });
+
+    window.onload = function () {
+        fetchDashboardCounts();
+    };
+    function fetchDashboardCounts() {
+        $.ajax({
+            url: "http://localhost:5113/api/DashboardApi/counts",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log("Students : " + data.students);
+                $("#studentCount").text(data.students);
+                $("#teacherCount").text(data.teachers);
+                $("#classCount").text(data.classes);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching dashboard counts:", error);
+            }
+        });
+    }
+</script>
